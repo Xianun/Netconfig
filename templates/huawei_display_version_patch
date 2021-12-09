@@ -1,0 +1,15 @@
+#Value Filldown Chassis (\d+)
+#Value stats (\S+)
+Value Required device_brief ([\S\s]+)
+Value device_verbose ([\S\s]+)
+Value version (V.*C.*)
+Value patch ([\S\s]+)
+Value uptime ([\S\s]+)
+
+
+Start
+#  ^Chassis ID: ${Chassis} \(${stats} Switch\)
+  ^VRP \(R\) [Ss]oftware, Version \d.\d* \(${device_brief} ${version}\)
+  ^(HUAWEI )?(Quidway )?${device_verbose}( Routing Switch)? uptime is ${uptime}
+  ^Patch (Package )?Version:${patch} -> Record
+  ^Info: ${patch}\. -> Record
