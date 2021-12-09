@@ -1,0 +1,34 @@
+Value Interface (\S+)
+Value Num (\d+)
+Value Index (\d+)
+Value PID_type ([\s\S]+)
+Value PID (\S+)
+Value Port_description ([\s\S]+)
+Value Sysname (\S+)
+Value Mgtadd (\S+)
+Value Mgtadd_type (\S+)
+Value Expired (\S+)
+Value Discovered ([\s\S]+)
+Value Chassis_type ([\s\S]+)
+Value Chassis_ID (\S+)
+Value List Sys_des ([\s\S]+)
+
+Start
+  ^\S+\s+has\s+\d+\s+neighbor -> Continue.Record
+  ^${Interface}\s+has\s+${Num}\s+neighbor
+  ^Neighbor index\s+:${Index}
+  ^Chassis type\s+:${Chassis_type}
+  ^Chassis ID\s+:${Chassis_ID}
+  ^Port ID \S*type\s+:${PID_type}
+  ^Port ID\s+:${PID}
+  ^Port description\s+:${Port_description}
+  ^System name\s+:${Sysname}
+  ^System description\s+:${Sys_des} -> Des
+  ^Management address type\s+:${Mgtadd_type}
+  ^Management address \S*\s+:${Mgtadd}
+  ^Expired time\s+:${Expired}
+  ^Discovered time\s+:${Discovered}
+  
+Des 
+  ^System capabilities supported -> Start
+  ^${Sys_des}
