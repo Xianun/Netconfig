@@ -1,0 +1,43 @@
+Value Required port (\S+)
+Value Required transceiver_type ([\S\s]+)
+Value connector_type (\S+)
+Value wavelength (\S+)
+Value List distance ([\S\s]+)
+Value vendor ([\S\s]+)
+Value Temperature (\d+\.\d+)
+Value List rx_power (-?\d+\.\d+)
+Value rx_high (-?\d+\.\d+)
+Value rx_low (-?\d+\.\d+)
+Value List tx_power (-?\d+\.\d+)
+Value tx_high (-?\d+\.\d+)
+Value tx_low (-?\d+\.\d+)
+
+Start
+  ^\s*.+ transceiver information: -> Continue.Record
+  ^\s*${port} transceiver information:
+  ^\s*Transceiver Type\s*:${transceiver_type}
+  ^\s*Connector Type\s*:${connector_type}
+  ^\s*Wavelength\s*\(nm\)\s*:${wavelength}
+  ^\s*Transfer Distance.*:${distance} -> DISTANCE
+  ^\s*Vendor Name.*:${vendor}
+  ^\s*Temperature.*:${Temperature}
+  ^\s*(Current)? RX Power[\s\(].*:-?\d+\.\d+\|${rx_power} -> Continue
+  ^\s*(Current)? RX Power[\s\(].*:${rx_power} -> RX
+
+DISTANCE
+  ^                                        \s+${distance}
+  ^\s*Digital Diagnostic.* -> Start
+
+RX
+  ^\s*${rx_power}|-?\d+\.\d+\s*.+ -> Continue
+  ^\s*-?\d+\.\d+\|${rx_power}\s*.+
+  ^\s*(Default)? RX Power High\s+Thre.*:${rx_high}
+  ^\s*(Default)? RX Power Low\s+Thre.*:${rx_low}
+  ^\s*(Current)? TX Power.*:-?\d+\.\d+\|${tx_power} -> Continue
+  ^\s*(Current)? TX Power.*:${tx_power} -> TX
+
+TX
+  ^\s*${tx_power}|-?\d+\.\d+\s*.+ -> Continue
+  ^\s*-?\d+\.\d+\|${tx_power}\s*.+
+  ^\s*(Default)? TX Power High\s+Thre.*:${tx_high}
+  ^\s*(Default)? TX Power Low\s+Thre.*:${tx_low} -> Start
