@@ -1,0 +1,37 @@
+Value Slot (\d+|backplane)
+Value Type (\S+)
+Value SN (\w+)
+Value Manu_date (\d{4}-\d{1,2}-\d{1,2})
+
+Start
+  ^\s* -> Error
+  ^Slot\s+Type\s+S.N\s+P.N\s+ -> USG
+  ^Chassis   Slot       Sub   Serial-number            Manu-date -> S
+  ^Slot       Card   Type               Serial-number            Manu-date -> CETOR
+  ^Slot       Card   Serial-number            Manu-date   -> STOR
+  ^Slot  Sub  Serial-number          Manu-date -> STOR
+  ^[Board Properties] -> NE
+  ^Elabel brief information: -> NE
+
+
+CETOR
+  ^backplane\s+--\s+${Type}\s+${SN}\s+${Manu_date} -> Record EOF
+  #CE12800 BoardSN Comment previous line
+  ^${Slot}\s+--\s+${Type}\s+${SN}\s+${Manu_date} -> Record
+
+STOR
+  ^${Slot}\s+-\s+${SN}\s+${Manu_date} -> Record
+
+S
+  ^${Slot}\s+backplane\s+-\s+${SN}\s+${Manu_date} -> Record
+
+NE
+  ^BoardType=${Type}
+  ^BarCode=${SN}
+  ^Manufactured=${Manu_date} -> Record
+  ^IPU\s${Slot}\s+\w+\s+${SN}\s+${Type} -> Record
+
+USG
+  ^${Slot}\s+RPU\s+${SN}\s+${Type} -> Record
+
+EOF
