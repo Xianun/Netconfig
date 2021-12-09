@@ -17,7 +17,7 @@ def DevicesInfo(DevicesPath,que):
             for host in line:
                 k += 1
                 if host[5] == "1":
-                    Device={'device_type':host[0],'host':host[1],'username':host[2],'password':host[3],'port':host[4],'conn_timeout':240,'blocking_timeout':40,'timeout':200,'banner_timeout':30,'allow_auto_change' :True,'session_timeout':240,'global_delay_factor':3,'global_cmd_verify':False}
+                    Device={'device_type':host[0],'host':host[1],'username':host[2],'password':host[3],'port':host[4]}
                     Devices.append(Device)
                         
             print('设备信息文件查找完成，共%d台登录设备，准备登录……' %len(Devices))
