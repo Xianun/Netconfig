@@ -1,0 +1,9 @@
+Value Interface (\S+)
+Value state (\S+)
+Value Linktype (\S+)
+Value Vlan (\d+)
+
+Start
+  ^${Interface} current state : ${state}
+  ^Switch Port, Link-type : ${Linktype},
+  ^PVID :\s+${Vlan},.* -> Record
