@@ -1,0 +1,3 @@
+device_type,host,username,password,port,active
+huawei,192.168.1.1,xianun,huawei@123,22,1
+huawei,192.168.1.2,xianun,huawei@123,22,1
