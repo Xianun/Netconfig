@@ -1,0 +1,15 @@
+Value Filldown ETH (Eth-Trunk\d+)
+Value Interface (\S+)
+Value PHY (\S+)
+Value Protocol (\S+)
+Value InUti (\S+)
+Value OutUti (\S+)
+Value inErrors (\d+)
+Value outErrors (\d+)
+
+Start
+  ^Interface\s+PHY\s+Protocol\s+InUti\s+OutUti\s+inErrors\s+outErrors 
+  ^${ETH}\s+ 
+  ^\s+${Interface}\s+${PHY}\s+${Protocol}\s+${InUti}\s+${OutUti}\s+${inErrors}\s+${outErrors}\s* -> Record
+  ^${Interface}\s+${PHY}\s+${Protocol}\s+${InUti}\s+${OutUti}\s+${inErrors}\s+${outErrors}\s* -> Continue.Clearall
+  ^${Interface}\s+${PHY}\s+${Protocol}\s+${InUti}\s+${OutUti}\s+${inErrors}\s+${outErrors}\s* -> Record
