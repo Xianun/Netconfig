@@ -1,0 +1,24 @@
+Value memory (\d+%)
+Value cpu (\d+%)
+Value cpu5s (\d+%)
+Value cpu1m (\d+%)
+Value cpu5m (\d+%)
+Value cpumax (\d+%)
+Value maxtime ([\S\s]+:\d+)
+
+Start
+  ^CPU utilization statistics -> CE
+  ^CPU Usage Stat. Cycle -> S
+
+CE
+  ^System CPU Using Percentage :  ${cpu}
+  ^CPU utilization for five seconds: ${cpu5s}, one minute: ${cpu1m}, five minutes: ${cpu5m}.
+  ^Max CPU Usage :                ${cpumax}
+  ^Max CPU Usage Stat. Time : ${maxtime}
+  ^Memory Using Percentage: ${memory} -> Record
+
+S
+  ^CPU Usage            : ${cpu} Max: ${cpumax}
+  ^CPU utilization for five seconds: ${cpu5s}: one minute: ${cpu1m}: five minutes: ${cpu5m}
+  ^Max CPU Usage Stat. Time : ${maxtime}
+  ^ Memory Using Percentage Is: ${memory} -> Record
