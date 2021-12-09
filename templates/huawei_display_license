@@ -1,0 +1,29 @@
+Value Active ([\S\s]+)
+Value state (\S+)
+Value revoke_ticket ([\S\s]+)
+Value name ([\S\s]+)
+Value version (V.*R.*)
+Value serial (\S+)
+Value creat_time ([\S\s]+)
+Value end_date ([\S\s]+)
+Value feature_name ([\S\s]+)
+Value expired_date ([\S\s]+)
+Value trial_days ([\S\s]+)
+Value List Item_name (\S+)
+
+Start
+  ^ Active License    : ${Active}
+  ^ License state     : ${state}
+  ^ Revoke ticket     : ${revoke_ticket}
+  ^ Product name      : ${name}
+  ^ Product version   : ${version}
+  ^ License Serial No : ${serial}
+  ^ Created Time      : ${creat_time}
+  ^ SnS End Date      : ${end_date}
+  ^ Feature name      : ${feature_name}
+  ^ Expired date      : ${expired_date}
+  ^ Trial days        : ${trial_days}
+  ^ Item name.*Item type.*Value.*Description -> Item
+
+Item
+  ^ ${Item_name}\s+\S+\s+\S+\s+\S+
